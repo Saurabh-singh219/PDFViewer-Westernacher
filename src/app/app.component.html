@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h2 class="text-center">PDF Viewer</h2>
+
+  <div class="form-group">
+    <label for="pdfLink">Enter PDF URL:</label>
+    <input type="text" class="form-control" id="pdfLink" [(ngModel)]="pdfUrl" placeholder="Enter URL and press View">
+    <button class="btn btn-primary mt-2" (click)="urlPost()">View</button>
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="fileUpload">Or Upload a PDF:</label>
+    <input type="file" class="form-control" id="fileUpload" (change)="onFileSelected($event)" #file>
+  </div>
+
+
+
+<div class="mt-4" *ngIf="pdfSrc">
+  <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block; width: 100%; height: 500px;"></pdf-viewer>
+</div>
+
+<div
+  class="drop-box"
+  (dragover)="onDragOver($event)"
+  (drop)="onDropSuccess($event)"
+  (click)="file.click()"
+>
+  <p *ngIf="!pdfFile">Drag & Drop PDF here</p>
+  <p *ngIf="pdfFile">{{ pdfFile.name }}</p>
+</div>
+
+<mat-slide-toggle [ngModel]="checked"
+(change)="sendToApi()">upload</mat-slide-toggle>
+</div>
